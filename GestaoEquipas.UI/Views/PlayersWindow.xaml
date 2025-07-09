@@ -4,8 +4,8 @@
         Title="Jogadores" Height="300" Width="400">
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
-            <TextBox Name="NameBox" Width="150" Margin="0 0 10 0" PlaceholderText="Nome"/>
-            <TextBox Name="PositionBox" Width="100" Margin="0 0 10 0" PlaceholderText="Posição"/>
+            <TextBox Name="NameBox" Width="150" Margin="0 0 10 0" />
+            <TextBox Name="PositionBox" Width="100" Margin="0 0 10 0" />
             <Button Content="Adicionar" Click="Add_Click"/>
         </StackPanel>
         <ListBox Name="PlayersList" />
