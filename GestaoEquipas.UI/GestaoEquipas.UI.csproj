@@ -7,4 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GestaoEquipas.Business\GestaoEquipas.Business.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PdfSharpNetStandard" Version="1.3.6" />
+  </ItemGroup>
 </Project>

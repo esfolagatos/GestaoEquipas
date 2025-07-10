@@ -32,6 +32,7 @@ Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no F
 
 - **Gestão de Jogadores** – adicionar e listar jogadores.
 - **Gestão de Treinos** – criar sessões de treino.
+- **Folha de Treino** – compilar exercícios e exportar em PDF.
 - **Gestão de Jogos** – registar jogos e resultados.
 - **Editor Tático** – janela de demonstração para futuras funcionalidades.
 
