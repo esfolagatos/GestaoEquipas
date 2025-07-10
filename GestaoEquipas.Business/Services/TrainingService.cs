@@ -8,7 +8,7 @@ namespace GestaoEquipas.Business.Services
     {
         private readonly TrainingRepository _repo = new TrainingRepository();
 
-        public void AddSession(TrainingSession session) => _repo.Add(session);
+        public int AddSession(TrainingSession session) => _repo.Add(session);
 
         public IEnumerable<TrainingSession> GetSessions() => _repo.GetAll();
     }

@@ -5,7 +5,7 @@ namespace GestaoEquipas.Data.DataAccess
 {
     public class TrainingRepository
     {
-        public void Add(TrainingSession session)
+        public int Add(TrainingSession session)
         {
             using var conn = Database.GetConnection();
             var cmd = conn.CreateCommand();
@@ -13,6 +13,8 @@ namespace GestaoEquipas.Data.DataAccess
             cmd.Parameters.AddWithValue("@date", session.Date.ToString("yyyy-MM-dd"));
             cmd.Parameters.AddWithValue("@notes", session.Notes);
             cmd.ExecuteNonQuery();
+            cmd.CommandText = "SELECT last_insert_rowid()";
+            return (int)(long)cmd.ExecuteScalar();
         }
 
         public IEnumerable<TrainingSession> GetAll()

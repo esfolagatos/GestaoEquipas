@@ -8,6 +8,12 @@
             <TextBox Name="NotesBox" Width="150" Margin="0 0 10 0" />
             <Button Content="Adicionar" Click="Add_Click"/>
         </StackPanel>
+        <DataGrid Name="AttendanceGrid" AutoGenerateColumns="False" Height="120" Margin="0 0 0 10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Jogador" Binding="{Binding PlayerName}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Presente" Binding="{Binding Present}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <ListBox Name="SessionsList" />
     </DockPanel>
 </Window>

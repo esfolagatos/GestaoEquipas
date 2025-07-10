@@ -37,6 +37,18 @@ CREATE TABLE IF NOT EXISTS Games(
     Opponent TEXT,
     Result TEXT
 );
+CREATE TABLE IF NOT EXISTS AttendanceRecords(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    TrainingSessionId INTEGER,
+    PlayerId INTEGER,
+    Present INTEGER
+);
+CREATE TABLE IF NOT EXISTS PerformanceStats(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GameId INTEGER,
+    PlayerId INTEGER,
+    Rating INTEGER
+);
 ";
             cmd.ExecuteNonQuery();
         }
