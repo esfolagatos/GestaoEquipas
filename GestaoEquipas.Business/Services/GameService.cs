@@ -8,7 +8,7 @@ namespace GestaoEquipas.Business.Services
     {
         private readonly GameRepository _repo = new GameRepository();
 
-        public void AddGame(Game game) => _repo.Add(game);
+        public int AddGame(Game game) => _repo.Add(game);
 
         public IEnumerable<Game> GetGames() => _repo.GetAll();
     }

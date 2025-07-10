@@ -5,7 +5,7 @@ namespace GestaoEquipas.Data.DataAccess
 {
     public class GameRepository
     {
-        public void Add(Game game)
+        public int Add(Game game)
         {
             using var conn = Database.GetConnection();
             var cmd = conn.CreateCommand();
@@ -14,6 +14,8 @@ namespace GestaoEquipas.Data.DataAccess
             cmd.Parameters.AddWithValue("@opp", game.Opponent);
             cmd.Parameters.AddWithValue("@res", game.Result);
             cmd.ExecuteNonQuery();
+            cmd.CommandText = "SELECT last_insert_rowid()";
+            return (int)(long)cmd.ExecuteScalar();
         }
 
         public IEnumerable<Game> GetAll()
