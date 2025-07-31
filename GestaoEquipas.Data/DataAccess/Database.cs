@@ -49,6 +49,12 @@ CREATE TABLE IF NOT EXISTS PerformanceStats(
     PlayerId INTEGER,
     Rating INTEGER
 );
+CREATE TABLE IF NOT EXISTS Exercises(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT,
+    Description TEXT,
+    Archived INTEGER
+);
 ";
             cmd.ExecuteNonQuery();
         }

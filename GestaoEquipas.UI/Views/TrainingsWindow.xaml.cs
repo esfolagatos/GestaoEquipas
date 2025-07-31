@@ -3,6 +3,7 @@ using GestaoEquipas.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 
 namespace GestaoEquipas.UI.Views
 {
@@ -11,6 +12,8 @@ namespace GestaoEquipas.UI.Views
         private readonly TrainingService _service = new TrainingService();
         private readonly PlayerService _playerService = new PlayerService();
         private readonly AttendanceService _attendanceService = new AttendanceService();
+        private readonly ExerciseService _exerciseService = new ExerciseService();
+        private readonly TrainingSheetService _sheetService = new TrainingSheetService();
 
         private List<AttendanceRow> _rows = new List<AttendanceRow>();
 
@@ -19,6 +22,7 @@ namespace GestaoEquipas.UI.Views
             InitializeComponent();
             LoadSessions();
             LoadPlayers();
+            LoadExercises();
         }
 
         private void LoadSessions()
@@ -38,6 +42,21 @@ namespace GestaoEquipas.UI.Views
                 _rows.Add(new AttendanceRow { PlayerId = p.Id, PlayerName = p.Name });
             }
             AttendanceGrid.ItemsSource = _rows;
+        }
+
+        private void LoadExercises()
+        {
+            ExercisesList.Items.Clear();
+            bool includeArchived = ShowArchivedBox.IsChecked == true;
+            foreach (var ex in _exerciseService.GetExercises(includeArchived))
+            {
+                var item = new System.Windows.Controls.ListBoxItem { Content = ex.Name, Tag = ex };
+                if (ex.Archived)
+                {
+                    item.Foreground = System.Windows.Media.Brushes.Gray;
+                }
+                ExercisesList.Items.Add(item);
+            }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -64,6 +83,71 @@ namespace GestaoEquipas.UI.Views
             LoadSessions();
             NotesBox.Text = "";
             LoadPlayers();
+            LoadExercises();
+        }
+
+        private void AddExercise_Click(object sender, RoutedEventArgs e)
+        {
+            var ex = new Exercise
+            {
+                Name = ExerciseNameBox.Text,
+                Description = ExerciseDescBox.Text
+            };
+            _exerciseService.AddExercise(ex);
+            ExerciseNameBox.Text = "";
+            ExerciseDescBox.Text = "";
+            LoadExercises();
+        }
+
+        private void ArchiveExercise_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (System.Windows.Controls.ListBoxItem item in ExercisesList.SelectedItems)
+            {
+                if (item.Tag is Exercise ex)
+                {
+                    _exerciseService.ArchiveExercise(ex.Id);
+                }
+            }
+            LoadExercises();
+        }
+
+        private void UnarchiveExercise_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (System.Windows.Controls.ListBoxItem item in ExercisesList.SelectedItems)
+            {
+                if (item.Tag is Exercise ex)
+                {
+                    _exerciseService.UnarchiveExercise(ex.Id);
+                }
+            }
+            LoadExercises();
+        }
+
+        private void ShowArchived_Checked(object sender, RoutedEventArgs e)
+        {
+            LoadExercises();
+        }
+
+        private void ExportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            var sheet = new TrainingSheet
+            {
+                Date = DatePicker.SelectedDate ?? DateTime.Now,
+                Notes = NotesBox.Text
+            };
+            foreach (System.Windows.Controls.ListBoxItem item in ExercisesList.SelectedItems)
+            {
+                if (item.Tag is Exercise ex)
+                {
+                    sheet.Exercises.Add(ex);
+                }
+            }
+
+            var dlg = new Microsoft.Win32.SaveFileDialog { Filter = "PDF|*.pdf" };
+            if (dlg.ShowDialog() == true)
+            {
+                _sheetService.ExportToPdf(sheet, dlg.FileName);
+            }
         }
 
         private class AttendanceRow

@@ -5,7 +5,7 @@ Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no F
 ## Pré-requisitos
 
 - **Sistema Operacional:** Windows 10 ou superior
-- **.NET 6 SDK** com suporte a desktop/wpf
+- **.NET 6 SDK** (ou superior) com suporte a desktop/WPF
 - **IDE:** Microsoft Visual Studio 2022 (ou compatível)
 - **Base de Dados:** SQLite3
 
@@ -18,6 +18,7 @@ Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no F
 2. **Abra o Projeto:**
    - Localize o arquivo `GestaoEquipas.sln` na raiz do repositório e abra-o no Visual Studio.
 3. **Compilar:**
+   - Execute `dotnet restore` para obter as dependências.
    - Selecione a configuração **Debug** e use `Build > Build Solution`.
 4. **Executar:**
    - Pressione **F5** para iniciar a aplicação. Na primeira execução o arquivo `gestao_equipas.db` será criado automaticamente.
@@ -32,6 +33,8 @@ Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no F
 
 - **Gestão de Jogadores** – adicionar e listar jogadores.
 - **Gestão de Treinos** – criar sessões de treino.
+- **Gestão de Exercícios** – criar, arquivar e reutilizar exercícios.
+- **Folha de Treino** – compilar exercícios e exportar em PDF.
 - **Gestão de Jogos** – registar jogos e resultados.
 - **Editor Tático** – janela de demonstração para futuras funcionalidades.
 
