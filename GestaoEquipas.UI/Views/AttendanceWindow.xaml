@@ -1,0 +1,30 @@
+<Window x:Class="GestaoEquipas.UI.Views.AttendanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Assiduidade" Height="520" Width="760">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBlock Text="Sessão:" VerticalAlignment="Center" Margin="0 0 6 0"/>
+            <ComboBox Name="SessionCombo" Width="300" SelectionChanged="SessionCombo_SelectionChanged"/>
+            <Button Content="Atualizar" Margin="10 0 0 0" Click="Refresh_Click"/>
+        </StackPanel>
+
+        <TextBlock Text="Presenças por atleta" FontWeight="Bold" Margin="0 0 0 6"/>
+        <DataGrid Name="AttendanceGrid" AutoGenerateColumns="False" Height="180" Margin="0 0 0 10" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Atleta" Binding="{Binding PlayerName}" Width="*"/>
+                <DataGridTextColumn Header="Presença" Binding="{Binding PresenceText}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Text="Resumo acumulado" FontWeight="Bold" Margin="0 0 0 6"/>
+        <DataGrid Name="SummaryGrid" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Atleta" Binding="{Binding PlayerName}" Width="*"/>
+                <DataGridTextColumn Header="Sessões" Binding="{Binding Sessions}" Width="80"/>
+                <DataGridTextColumn Header="Presentes" Binding="{Binding Presents}" Width="80"/>
+                <DataGridTextColumn Header="%" Binding="{Binding Percentage}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

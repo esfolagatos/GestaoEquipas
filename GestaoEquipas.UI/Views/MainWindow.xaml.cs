@@ -32,5 +32,17 @@ namespace GestaoEquipas.UI.Views
             var win = new TacticsWindow();
             win.ShowDialog();
         }
+
+        private void Attendance_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new AttendanceWindow();
+            win.ShowDialog();
+        }
+
+        private void Competitions_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new CompetitionsWindow();
+            win.ShowDialog();
+        }
     }
 }

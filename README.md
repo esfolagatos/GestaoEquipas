@@ -36,6 +36,11 @@ Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no F
 - **Gestão de Jogos** – registar jogos e resultados.
 - **Editor Tático** – janela de demonstração para futuras funcionalidades.
 
+
+## Planeamento MVP
+
+Foi adicionada documentação de planeamento funcional e técnico da versão inicial em `docs/MVP_V1.md`.
+
 ## Licença
 
 Distribuído sob a [Licença MIT](LICENSE).
