@@ -7,6 +7,8 @@
             <MenuItem Header="Jogadores" Click="Players_Click"/>
             <MenuItem Header="Treinos" Click="Trainings_Click"/>
             <MenuItem Header="Jogos" Click="Games_Click"/>
+            <MenuItem Header="Competições" Click="Competitions_Click"/>
+            <MenuItem Header="Assiduidade" Click="Attendance_Click"/>
             <MenuItem Header="Tácticas" Click="Tactics_Click"/>
         </Menu>
         <Grid>

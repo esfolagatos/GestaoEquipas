@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GestaoEquipas.UI.Views
 {
@@ -47,11 +49,12 @@ namespace GestaoEquipas.UI.Views
         private void LoadExercises()
         {
             ExercisesList.Items.Clear();
-            foreach (var ex in _exerciseService.GetExercises())
+            bool includeArchived = IncludeArchivedCheck?.IsChecked == true;
+            foreach (var ex in _exerciseService.GetExercises(includeArchived))
             {
                 ExercisesList.Items.Add(new System.Windows.Controls.ListBoxItem
                 {
-                    Content = ex.Name,
+                    Content = ex.Archived ? $"{ex.Name} [Arquivado]" : ex.Name,
                     Tag = ex
                 });
             }
@@ -86,15 +89,70 @@ namespace GestaoEquipas.UI.Views
 
         private void AddExercise_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(ExerciseNameBox.Text))
+            {
+                MessageBox.Show("Indica o nome do exercício.", "Validação", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var ex = new Exercise
             {
-                Name = ExerciseNameBox.Text,
-                Description = ExerciseDescBox.Text
+                Name = ExerciseNameBox.Text.Trim(),
+                Description = ExerciseDescBox.Text.Trim()
             };
             _exerciseService.AddExercise(ex);
             ExerciseNameBox.Text = "";
             ExerciseDescBox.Text = "";
             LoadExercises();
+        }
+
+        private void ArchiveExercise_Click(object sender, RoutedEventArgs e)
+        {
+            if (ExercisesList.SelectedItem is not ListBoxItem selected || selected.Tag is not Exercise exercise)
+            {
+                MessageBox.Show("Seleciona um exercício para arquivar.", "Validação", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            _exerciseService.ArchiveExercise(exercise.Id);
+            LoadExercises();
+            ExercisePreviewText.Text = "Exercício arquivado.";
+        }
+
+        private void UnarchiveExercise_Click(object sender, RoutedEventArgs e)
+        {
+            if (ExercisesList.SelectedItem is not ListBoxItem selected || selected.Tag is not Exercise exercise)
+            {
+                MessageBox.Show("Seleciona um exercício para reativar.", "Validação", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            _exerciseService.UnarchiveExercise(exercise.Id);
+            LoadExercises();
+            ExercisePreviewText.Text = "Exercício reativado.";
+        }
+
+        private void IncludeArchivedCheck_Changed(object sender, RoutedEventArgs e)
+        {
+            LoadExercises();
+        }
+
+        private void ExercisesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ExercisesList.SelectedItem is ListBoxItem selected && selected.Tag is Exercise exercise)
+            {
+                ExercisePreviewText.Text = string.IsNullOrWhiteSpace(exercise.Description)
+                    ? $"{exercise.Name}: sem descrição."
+                    : $"{exercise.Name}: {exercise.Description}";
+            }
+            else if (ExercisesList.SelectedItems.Count > 1)
+            {
+                ExercisePreviewText.Text = $"{ExercisesList.SelectedItems.Count} exercícios selecionados.";
+            }
+            else
+            {
+                ExercisePreviewText.Text = "Seleciona um exercício para ver descrição.";
+            }
         }
 
         private void ExportPdf_Click(object sender, RoutedEventArgs e)
@@ -130,6 +188,11 @@ namespace GestaoEquipas.UI.Views
                 {
                     gfx.DrawString($"- {ex.Name}: {ex.Description}", font, XBrushes.Black, new XPoint(50, y));
                     y += 20;
+                }
+
+                if (!sheet.Exercises.Any())
+                {
+                    gfx.DrawString("Sem exercícios selecionados.", font, XBrushes.Black, new XPoint(50, y));
                 }
 
                 doc.Save(dlg.FileName);

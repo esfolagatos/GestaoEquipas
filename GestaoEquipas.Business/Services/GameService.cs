@@ -11,5 +11,7 @@ namespace GestaoEquipas.Business.Services
         public int AddGame(Game game) => _repo.Add(game);
 
         public IEnumerable<Game> GetGames() => _repo.GetAll();
+
+        public void DeleteGame(int gameId) => _repo.Delete(gameId);
     }
 }
