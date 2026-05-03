@@ -1,7 +1,7 @@
 <Window x:Class="GestaoEquipas.UI.Views.TrainingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Treinos" Height="450" Width="450">
+        Title="FUTMAX | Treinos" Height="450" Width="450">
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
             <DatePicker Name="DatePicker" Width="120" Margin="0 0 10 0"/>

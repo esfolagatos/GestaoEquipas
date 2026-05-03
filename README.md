@@ -1,6 +1,6 @@
-# Gestão de Equipas
+# FUTMAX
 
-Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no Football Manager. A aplicação fornece funcionalidades básicas de gestão de jogadores, treinos, jogos e táticas, armazenando os dados localmente em SQLite.
+O FUTMAX é uma aplicação desktop desenvolvida em C# e WPF, inspirada no Football Manager. A aplicação fornece funcionalidades básicas de gestão de jogadores, treinos, jogos e táticas, armazenando os dados localmente em SQLite.
 
 ## Pré-requisitos
 
@@ -20,7 +20,7 @@ Este projeto é uma aplicação desktop desenvolvida em C# e WPF, inspirada no F
 3. **Compilar:**
    - Selecione a configuração **Debug** e use `Build > Build Solution`.
 4. **Executar:**
-   - Pressione **F5** para iniciar a aplicação. Na primeira execução o arquivo `gestao_equipas.db` será criado automaticamente.
+   - Pressione **F5** para iniciar a aplicação. Na primeira execução o arquivo `futmax.db` será criado automaticamente.
 
 ## Estrutura do Projeto
 

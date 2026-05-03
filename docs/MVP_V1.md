@@ -1,4 +1,4 @@
-# MVP v1 — Gestão de Equipas (Futebol Europeu)
+# MVP v1 — FUTMAX (Futebol Europeu)
 
 ## 1) Funcionalidades fechadas para a versão 1
 

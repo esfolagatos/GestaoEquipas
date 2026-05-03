@@ -6,7 +6,7 @@ namespace GestaoEquipas.Data.DataAccess
 {
     public static class Database
     {
-        private static readonly string DbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gestao_equipas.db");
+        private static readonly string DbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "futmax.db");
 
         public static SqliteConnection GetConnection()
         {
